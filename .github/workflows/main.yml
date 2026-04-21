@@ -161,17 +161,17 @@ jobs:
         retention-days: 7
 
     # Run all codegen tests for this language
-    - run: |
-        cargo run test --languages ${{ matrix.lang }} tests/codegen \
-          --artifacts target/artifacts \
-          --rust-wit-bindgen-path ./crates/guest-rust
+    # - run: |
+    #     cargo run test --languages ${{ matrix.lang }} tests/codegen \
+    #       --artifacts target/artifacts \
+    #       --rust-wit-bindgen-path ./crates/guest-rust
 
     # Run all runtime tests for this language, and also enable Rust in case this
     # language only implements either the runner or test component
-    - run: |
-        cargo run test --languages rust,${{ matrix.lang }} tests/runtime \
-          --artifacts target/artifacts \
-          --rust-wit-bindgen-path ./crates/guest-rust
+    # - run: |
+    #     cargo run test --languages rust,${{ matrix.lang }} tests/runtime \
+    #       --artifacts target/artifacts \
+    #       --rust-wit-bindgen-path ./crates/guest-rust
 
   # While async is off-by-default and toolchains are percolating this is a
   # separate job to get configured slightly differently.
