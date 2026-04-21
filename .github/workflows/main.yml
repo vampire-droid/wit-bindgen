@@ -157,7 +157,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: runtimelab-packages
-        path: $ILC_PACKAGES_PATH
+        path: ${{ env.ILC_PACKAGES_PATH }}
         retention-days: 7
 
     # Run all codegen tests for this language
