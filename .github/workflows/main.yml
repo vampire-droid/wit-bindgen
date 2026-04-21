@@ -150,7 +150,8 @@ jobs:
     - name: Set ILC env vars for macOS C#
       if: runner.os == 'macOS' && matrix.lang == 'csharp'
       run: |
-        echo "ILC_VERSION=10.0.0-dev" >> $GITHUB_ENV
+        # echo "ILC_VERSION=10.0.0-dev" >> $GITHUB_ENV
+        echo "ILC_VERSION=10.0.0" >> $GITHUB_ENV
         echo "ILC_PACKAGES_PATH=${{ github.workspace }}/runtimelab-packages" >> $GITHUB_ENV
 
     - name: Upload runtimelab packages
