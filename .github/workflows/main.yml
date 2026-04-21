@@ -79,7 +79,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '10.x'
-        dotnet-quality: 'preview'
+        # dotnet-quality: 'preview'
       if: matrix.lang == 'csharp' && runner.os == 'macOS'
 
     - name: Setup Go
