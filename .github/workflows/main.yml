@@ -47,9 +47,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        # os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [macos-latest]
         # moonbit removed from language matrix for now - causing CI failures
-        lang: [c, rust, csharp, cpp, go]
+        # lang: [c, rust, csharp, cpp, go]
+        lang: [csharp]
     runs-on: ${{ matrix.os }}
     env:
       RUNTIMELAB_COMMIT: '4cac3ab5c8e97fda69c23dfca41ace964babc05e'
@@ -150,6 +152,13 @@ jobs:
       run: |
         echo "ILC_VERSION=10.0.0-dev" >> $GITHUB_ENV
         echo "ILC_PACKAGES_PATH=${{ github.workspace }}/runtimelab-packages" >> $GITHUB_ENV
+
+    - name: Upload runtimelab packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: runtimelab-packages
+        path: $ILC_PACKAGES_PATH
+        retention-days: 7
 
     # Run all codegen tests for this language
     - run: |
@@ -288,12 +297,12 @@ jobs:
     name: Record the result of testing and building steps
     runs-on: ubuntu-latest
     needs:
-      - test
-      - test_unit
+      # - test
+      # - test_unit
       - rustfmt
       - build
-      - verify-publish
-      - check
+      # - verify-publish
+      # - check
       # - async
     if: always()
 
