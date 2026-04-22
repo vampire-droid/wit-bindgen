@@ -79,7 +79,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '10.x'
-        # dotnet-quality: 'preview'
+        dotnet-quality: 'preview'
       if: matrix.lang == 'csharp' && runner.os == 'macOS'
 
     - name: Setup Go
@@ -140,8 +140,14 @@ jobs:
         ./build.sh libs -c Release /p:NuGetAudit=false
         LLVM_CMAKE_CONFIG_RELEASE=$(brew --prefix llvm@18)/lib/cmake/llvm \
         src/coreclr/build-runtime.sh -arm64 -release -os osx -outputrid osx-arm64 -component llvmjit
+        
         cp artifacts/bin/coreclr/osx.arm64.Release/libclrjit_universal_llvm32_arm64.dylib artifacts/bin/coreclr/osx.arm64.Release/ilc-published/
         cp artifacts/bin/coreclr/osx.arm64.Release/libjitinterface_arm64.dylib artifacts/bin/coreclr/osx.arm64.Release/ilc-published/
+
+        # 7. ✅ BUILD HOST PACKAGES (this was missing!)
+        ./build.sh nativeaot.packages -c Release -os osx -arch arm64 /p:NuGetAudit=false
+
+        
         ./build.sh nativeaot.packages -c Release /p:NuGetAudit=false
 
         mkdir -p ../runtimelab-packages
